@@ -20,8 +20,8 @@ export default function LoginPage() {
   const {setLoginStatus} = useContext(CartContext);
 
    const onSubmit = async (data) => {
-    let r = await axios.post("http://localhost:3000/login",
-      data)
+    console.log("Controll is coming")
+    let r = await axios.post("http://localhost:3000/login" , data)
       if(r.status===200){
         setLoginStatus(true);
         navigate("/");
@@ -33,7 +33,7 @@ export default function LoginPage() {
     console.log(data, r);
   };
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-white flex items-center justify-center px-4 py-12">
+ <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-white flex items-center justify-center px-4 py-12">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

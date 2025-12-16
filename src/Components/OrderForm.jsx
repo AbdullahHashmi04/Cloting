@@ -13,18 +13,13 @@ const OrderForm = () => {
 
   const onSubmit = async (data) => {
     try {
-      const orderData = {
-        ...data,
-        items: cart.map((item, index) => ({
-          Name: item.name,
-          Category: item.category,
-          Price: item.price
-        }))
-      };
-      
-      await axios.post("http://localhost:3000/order", { item: orderData });
+      console.log("Data is coming again")
+     const res =  await axios.post("http://localhost:3000/orders", {  data });
+     if(res.status === 200){
+     console.log("Response successful" , res)
       clearCart();
       navigate("/");
+     }
     } catch (error) {
       console.error("Order submission error:", error);
     }
@@ -33,7 +28,7 @@ const OrderForm = () => {
   const totalPrice = cart.reduce((sum, item) => sum + item.price, 0);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-purple-50/30 py-12">
+    <div className="min-h-screen flex flex-col justify-center bg-gradient-to-br from-gray-50 via-white to-purple-50/30 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
         <motion.div
@@ -47,7 +42,7 @@ const OrderForm = () => {
           <p className="text-gray-600">Complete your order</p>
         </motion.div>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="grid md:grid-cols-3 gap-8">
+        <form onSubmit={handleSubmit(onSubmit)} action="" className="grid md:grid-cols-3 gap-8">
           <div className="md:col-span-2 space-y-6">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
@@ -63,7 +58,7 @@ const OrderForm = () => {
                   <label className="block text-sm font-semibold text-gray-700 mb-2">Full Name</label>
                   <input
                     type="text"
-                    {...register("fullName", { required: "Full name is required" })}
+                    {...register("FullName", { required: "Full name is required" })}
                     className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none"
                     placeholder="John Doe"
                   />
@@ -77,7 +72,7 @@ const OrderForm = () => {
                   </label>
                   <input
                     type="email"
-                    {...register("email", { 
+                    {...register("Email", { 
                       required: "Email is required",
                       pattern: {
                         value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
@@ -97,7 +92,7 @@ const OrderForm = () => {
                   </label>
                   <input
                     type="tel"
-                    {...register("phone", { required: "Phone number is required" })}
+                    {...register("Phone", { required: "Phone number is required" })}
                     className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none"
                     placeholder="+1 (555) 123-4567"
                   />
@@ -110,7 +105,7 @@ const OrderForm = () => {
                     Address
                   </label>
                   <textarea
-                    {...register("address", { required: "Address is required" })}
+                    {...register("Address", { required: "Address is required" })}
                     className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none resize-none"
                     rows="3"
                     placeholder="123 Main St, City, State, ZIP"
@@ -135,7 +130,7 @@ const OrderForm = () => {
                   <label className="block text-sm font-semibold text-gray-700 mb-2">Card Number</label>
                   <input
                     type="text"
-                    {...register("cardNumber", { required: "Card number is required" })}
+                    {...register("CardNumber", { required: "Card number is required" })}
                     className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none"
                     placeholder="1234 5678 9012 3456"
                   />
@@ -178,16 +173,16 @@ const OrderForm = () => {
               <h2 className="text-2xl font-bold mb-6">Order Summary</h2>
               
               <div className="space-y-4 mb-6">
-                {cart.map((item) => (
+                {cart.map((item,index) => (
                   <div key={item.id} className="flex items-center gap-3">
                     <img
-                      src={item.img || item.images?.[0] || `https://images.unsplash.com/photo-${1500000000000 + item.id}?w=100&h=100&fit=crop`}
+                      src={item.image}
                       alt={item.name}
                       className="w-16 h-16 rounded-lg object-cover"
                     />
                     <div className="flex-1">
-                      <p className="font-semibold text-sm">{item.name}</p>
-                      <p className="text-gray-500 text-xs">${item.price}</p>
+                      <input className="font-semibold text-sm"  {...register(`cart.${index}.name`)} value={item.name}/>
+                      <input className="text-gray-500 text-xs"  {...register(`cart.${index}.name`)} value={item.price}/>
                     </div>
                   </div>
                 ))}

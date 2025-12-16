@@ -206,12 +206,7 @@ export default function HeroSlider() {
                   <div className="product-card">
                     <div className="product-card-image-container">
                       <img
-                        src={
-                          item.images?.[0] ||
-                          `https://images.unsplash.com/photo-${
-                            1500000000000 + item.id
-                          }?w=400&h=500&fit=crop`
-                        }
+                        src={item.image}
                         alt={item.title}
                         className="product-card-image"
                       />

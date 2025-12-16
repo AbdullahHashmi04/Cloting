@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { ShoppingBag, Menu, User, X, LogOut, CircleUser  } from "lucide-react";
+import { ShoppingBag, Menu, User, X, LogOut, CircleUser, ArrowBigRight  } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CartContext } from "./CartContext";
 import "../Style/Navbar.css";
@@ -85,10 +85,9 @@ export default function Navbar() {
             ))}
           </div>
 
-          <div className="navbar-actions">
-            <Link to="/mycart" className="navbar-cart-button">
+       <div className="navbar-actions">
+           {cart.length > 0 && (<Link to="/mycart" className="navbar-cart-button">
               <ShoppingBag className="navbar-cart-icon" />
-              {cart.length > 0 && (
                 <motion.span
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
@@ -96,18 +95,30 @@ export default function Navbar() {
                 >
                   {cart.length}
                 </motion.span>
-              )}
-            </Link>
-            {loginStatus && RegisterStatus ? 
-            (<div className="relative group">
-              <CircleUser size={30} className="cursor-pointer" />
-                </div>)
+            </Link>)}
+
+            {loginStatus ? 
+            ( <div className="relative group">
+      {/* Profile Icon */}
+      <CircleUser
+        size={30}
+        className="cursor-pointer text-gray-700 hover:text-gray-900 transition-colors duration-200"
+      />
+
+      {/* Dropdown Button */}
+      <div className="absolute right-0 mt-2 w-36 bg-white shadow-lg rounded-lg opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 pointer-events-none group-hover:pointer-events-auto">
+        <button className="flex items-center justify-between w-full px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
+          Logout <ArrowBigRight size={20} />
+        </button>
+      </div>
+    </div>
+              )
             : (
                 <Link to="/login" className="navbar-login-button">
                   Login
                 </Link>)}
 
-                {RegisterStatus ? null : (
+                {RegisterStatus || loginStatus ? null : (
                   <Link to="/signup" className="navbar-signup-button">
                     Sign Up
                   </Link>

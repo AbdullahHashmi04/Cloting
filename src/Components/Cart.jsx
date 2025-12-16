@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 
 function Cart() {
-  const { register, handleSubmit } = useForm();
+  const { handleSubmit } = useForm();
 
   const Navigate = useNavigate();
   const { cart, removeFromCart, loginStatus } = useContext(CartContext);
@@ -43,7 +43,7 @@ function Cart() {
 
   return (
     <>
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-purple-50/30 py-12">
+      <div className="min-h-screen flex flex-col justify-center bg-gradient-to-br from-gray-50 via-white to-purple-50/30 py-12">
         <div className="flex justify-center items-center">
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
@@ -69,18 +69,7 @@ function Cart() {
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mb-8"
-          >
-            <h1 className="text-5xl font-bold mb-2 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-              Your Shopping Cart
-            </h1>
-            <p className="text-gray-600">
-              {cart.length} {cart.length === 1 ? "item" : "items"} in your cart
-            </p>
-          </motion.div>
+        
 
           {cart.length === 0 ? (
             <motion.div
@@ -113,7 +102,7 @@ function Cart() {
                         <div className="flex flex-col md:flex-row gap-6  p-6">
                           <div className="w-full md:w-28 h-44 md:h-28 rounded-xl overflow-hidden bg-gray-100">
                             <img
-                              src={item.img || item.images?.[0]}
+                              src={item.image}
                               alt={item.name}
                               className="w-full h-full object-cover"
                             />
@@ -222,20 +211,20 @@ function Cart() {
                       </button>
                     </Link>
 
-                    {/* {loginStatus ? ( */}
+                    {loginStatus ? (
                       <Link to="/OrderForm">
                         <button className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all transform hover:scale-105 shadow-lg font-semibold">
                           <CreditCard className="w-5 h-5" />
                           Proceed to Checkout
                         </button>
                       </Link>
-                    {/* ) : (
+                    ) : (
                       <Link to="/login">
                         <button className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all transform hover:scale-105 shadow-lg font-semibold">
                           Login to Checkout
                         </button>
-                      </Link> */}
-                    {/* )} */}
+                      </Link> )}
+                    
                   </div>
                 </motion.div>
               </div>

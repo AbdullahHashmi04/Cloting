@@ -4,8 +4,8 @@ import cors from "cors"
 import bodyParser from "body-parser"
 import mongoose from "mongoose"
 import { Credentials } from "./Model/Credentials.js"
-import { Order } from "./Model/Order.js"
 import setUser from "./Service/auth.js"
+import OrderDetails from "./Model/OrderDetails.js"
 
 await mongoose.connect("mongodb://localhost:27017/Credentials")
 
@@ -24,7 +24,7 @@ app.post("/signup",(req,res)=>{
 app.post("/login", async (req, res) => {
   const {Username, Password} = req.body;
   const query = await Credentials.findOne({ Username: Username, Password: Password })
-  console.log("Login Body req is ",req.body);
+  console.log("Login Body req is ",req.body , " and ",query);
 try{
  if(Username === "admin" || Password === "admin123"){
     res.status(201);
@@ -44,12 +44,19 @@ try{
   } 
 })
 
-app.post("/order",(req,res)=>{
-  // console.log("Order Body req is ",req.body.item);
-  const order = new Order(req.body.item)
-  order.save()
-  res.status(201)
+app.post("/orders",(req,res)=>{
+  console.log("Hello World",req.body.data)
+  const query = new OrderDetails(req.body.data)
+  query.save()
+  console.log("Data has been saved")
+  res.status(200)
+  res.send("Successful")
 })
+
+app.get('/pakistan',(req,res)=>{
+  res.send("Hello World")
+})
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
