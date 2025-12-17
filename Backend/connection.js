@@ -23,19 +23,22 @@ app.post("/signup",(req,res)=>{
 
 app.post("/login", async (req, res) => {
   const {Username, Password} = req.body;
-  const query = await Credentials.findOne({ Username: Username, Password: Password })
-  console.log("Login Body req is ",req.body , " and ",query);
+  const query1 = await Credentials.findOne({ Username: Username})
+  const query2 = await Credentials.findOne({  Password: Password })
+  console.log("Login Body req is  ,  and ",query1);
+  console.log("Again Login Body req is ",req.body , " and ",query2);
 try{
  if(Username === "admin" || Password === "admin123"){
     res.status(201);
     res.send("Admin Login Successful");
-  }else if(query){  
-    console.log("User found: ",query);
-    const token = setUser(query);
-     if (!token) return res.status(500).send("Token generation failed");
-    res.cookie("uid", token)
-    res.send("Login Successful");
-  }
+ }
+  // }else if(query1){  
+  //   console.log("User found: ",query);
+  //   const token = setUser(query);
+  //    if (!token) return res.status(500).send("Token generation failed");
+  //   res.cookie("uid", token)
+  //   res.send("Login Successful");
+  // }
    else {
     res.status(401);
     res.send("Login not Successful");

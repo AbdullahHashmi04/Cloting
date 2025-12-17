@@ -67,7 +67,6 @@ export default function HeroSlider() {
   }
   return (
     <>
-      {/* Hero Slider Section */}
       <div className="hero-section">
         {slides.map((slide, index) => (
           <motion.div
@@ -478,7 +477,6 @@ export default function HeroSlider() {
         </div>
       </section>
 
-      {/* Stats Section */}
       <section className="stats-section">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -534,9 +532,8 @@ export default function HeroSlider() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                className="collection-card"
-              >
-                <Link to="/catalog" onClick={() => setCatalog("beauty")}>
+                className="collection-card">
+                <Link to="/catalog" onClick={() => setCatalog("men")}>
                   <div className="collection-image-container">
                     <img
                       src="https://images.unsplash.com/photo-1617137968427-85924c800a22?w=600&h=400&fit=crop"
@@ -558,7 +555,7 @@ export default function HeroSlider() {
                 transition={{ duration: 0.6, delay: 0.1 }}
                 className="collection-card"
               >
-                <Link to="/catalog" onClick={() => setCatalog("fragrances")}>
+                <Link to="/catalog" onClick={() => setCatalog("women")}>
                   <div className="collection-image-container">
                     <img
                       src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&h=400&fit=crop"
@@ -580,7 +577,7 @@ export default function HeroSlider() {
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="collection-card"
               >
-                <Link to="/catalog" onClick={() => setCatalog("groceries")}>
+                <Link to="/catalog" onClick={() => setCatalog("kid")}>
                   <div className="collection-image-container">
                     <img
                       src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=600&h=400&fit=crop"

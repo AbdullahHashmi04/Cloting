@@ -77,6 +77,7 @@ export default function ClothingCatalog() {
                 key={cat}
                 onClick={() => {
                   setSelectedCategory(cat);
+                
                   setCategory(cat === "All" ? "" : cat);
                 }}
                 className={`catalog-category-button ${
@@ -86,6 +87,7 @@ export default function ClothingCatalog() {
                 }`}
               >
                 {cat.charAt(0).toUpperCase() + cat.slice(1)}
+                  {console.log(selectedCategory)}
               </button>
             ))}
           </div>
