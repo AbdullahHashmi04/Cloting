@@ -16,7 +16,6 @@ import AdminDashboard from './Components/admin/AdminDashboard.jsx';
 import AdminProducts from './Components/admin/AdminProducts.jsx';
 import AdminOrders from './Components/admin/AdminOrders.jsx';
 import AdminCustomers from './Components/admin/AdminCustomers.jsx';
-import AdminSettings from './Components/admin/AdminSettings.jsx';
 
 const router = createBrowserRouter([
   {
@@ -40,7 +39,6 @@ const router = createBrowserRouter([
       { path: "products", element: <AdminProducts /> },
       { path: "orders", element: <AdminOrders /> },
       { path: "customers", element: <AdminCustomers /> },
-      { path: "settings", element: <AdminSettings /> },
     ],
   },
 ]);

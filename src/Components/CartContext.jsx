@@ -15,53 +15,7 @@ export const CartProvider = ({ children }) => {
 
   const [mycategory, setCategory] = useState();
 
-  const AllData = [
-  { id: 1,  image: "https://images.pexels.com/photos/428338/pexels-photo-428338.jpeg", name: "Men Black T-Shirt", title: "Classic Black Tee", category: "men", price: 1499 },
-  { id: 2,  image: "https://images.pexels.com/photos/298863/pexels-photo-298863.jpeg", name: "Men Denim Jeans", title: "Slim Fit Jeans", category: "men", price: 2999 },
-  { id: 3,  image: "https://images.pexels.com/photos/842567/pexels-photo-842567.jpeg", name: "Men Hoodie", title: "Grey Hoodie", category: "men", price: 2499 },
-  { id: 4,  image: "https://images.pexels.com/photos/1036623/pexels-photo-1036623.jpeg", name: "Men Jacket", title: "Leather Jacket", category: "men", price: 7999 },
-  { id: 5,  image: "https://images.pexels.com/photos/428338/pexels-photo-428338.jpeg", name: "Men Polo Shirt", title: "Casual Polo", category: "men", price: 2199 },
-  { id: 6,  image: "https://images.pexels.com/photos/2983464/pexels-photo-2983464.jpeg", name: "Men Shorts", title: "Khaki Shorts", category: "men", price: 1899 },
-  { id: 7,  image: "https://images.pexels.com/photos/298864/pexels-photo-298864.jpeg", name: "Men Sweater", title: "V-Neck Sweater", category: "men", price: 2699 },
-  { id: 8,  image: "https://images.pexels.com/photos/298863/pexels-photo-298863.jpeg", name: "Men Formal Shirt", title: "White Formal Shirt", category: "men", price: 3499 },
-  { id: 9,  image: "https://images.pexels.com/photos/1043472/pexels-photo-1043472.jpeg", name: "Men Tracksuit", title: "Sports Tracksuit", category: "men", price: 3999 },
-  { id: 10, image: "https://images.pexels.com/photos/2983463/pexels-photo-2983463.jpeg", name: "Men Cap", title: "Baseball Cap", category: "men", price: 899 },
-
-  { id: 11, image: "https://images.pexels.com/photos/2983465/pexels-photo-2983465.jpeg", name: "Women Dress", title: "Summer Dress", category: "women", price: 3799 },
-  { id: 12, image: "https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg", name: "Women Top", title: "Floral Top", category: "women", price: 2199 },
-  { id: 13, image: "https://images.pexels.com/photos/2983467/pexels-photo-2983467.jpeg", name: "Women Jeans", title: "Skinny Jeans", category: "women", price: 2899 },
-  { id: 14, image: "https://images.pexels.com/photos/2983468/pexels-photo-2983468.jpeg", name: "Women Jacket", title: "Denim Jacket", category: "women", price: 4999 },
-  { id: 15, image: "https://images.pexels.com/photos/2983469/pexels-photo-2983469.jpeg", name: "Women Skirt", title: "A‑Line Skirt", category: "women", price: 1999 },
-  { id: 16, image: "https://images.pexels.com/photos/2983470/pexels-photo-2983470.jpeg", name: "Women Blouse", title: "Silk Blouse", category: "women", price: 2499 },
-  { id: 17, image: "https://images.pexels.com/photos/2983471/pexels-photo-2983471.jpeg", name: "Women Hoodie", title: "Pink Hoodie", category: "women", price: 2699 },
-  { id: 18, image: "https://images.pexels.com/photos/2983472/pexels-photo-2983472.jpeg", name: "Women Leggings", title: "Black Leggings", category: "women", price: 1799 },
-  { id: 19, image: "https://images.pexels.com/photos/2983473/pexels-photo-2983473.jpeg", name: "Women Formal Dress", title: "Party Gown", category: "women", price: 5999 },
-  { id: 20, image: "https://images.pexels.com/photos/2983474/pexels-photo-2983474.jpeg", name: "Women Shorts", title: "Denim Shorts", category: "women", price: 2099 },
-
-  { id: 21, image: "https://images.pexels.com/photos/2983475/pexels-photo-2983475.jpeg", name: "Kids T‑Shirt", title: "Cartoon T‑Shirt", category: "kids", price: 1299 },
-  { id: 22, image: "https://images.pexels.com/photos/2983476/pexels-photo-2983476.jpeg", name: "Kids Jeans", title: "Blue Jeans", category: "kids", price: 2199 },
-  { id: 23, image: "https://images.pexels.com/photos/2983477/pexels-photo-2983477.jpeg", name: "Kids Dress", title: "Flower Dress", category: "kids", price: 2699 },
-  { id: 24, image: "https://images.pexels.com/photos/2983478/pexels-photo-2983478.jpeg", name: "Kids Jacket", title: "Warm Jacket", category: "kids", price: 3299 },
-  { id: 25, image: "https://images.pexels.com/photos/2983479/pexels-photo-2983479.jpeg", name: "Kids Shorts", title: "Casual Shorts", category: "kids", price: 1499 },
-  { id: 26, image: "https://images.pexels.com/photos/2983480/pexels-photo-2983480.jpeg", name: "Kids Hoodie", title: "Blue Hoodie", category: "kids", price: 2499 },
-  { id: 27, image: "https://images.pexels.com/photos/2983481/pexels-photo-2983481.jpeg", name: "Kids Leggings", title: "Girls Leggings", category: "kids", price: 1799 },
-  { id: 28, image: "https://images.pexels.com/photos/2983482/pexels-photo-2983482.jpeg", name: "Kids Cap", title: "Fun Cap", category: "kids", price: 699 },
-  { id: 29, image: "https://images.pexels.com/photos/2983483/pexels-photo-2983483.jpeg", name: "Kids Sweater", title: "Stripe Sweater", category: "kids", price: 2299 },
-  { id: 30, image: "https://images.pexels.com/photos/2983484/pexels-photo-2983484.jpeg", name: "Kids Shoes", title: "Kids Sneakers", category: "kids", price: 2899 },
-
-  { id: 31, image: "https://images.pexels.com/photos/1036623/pexels-photo-1036623.jpeg", name: "Unisex Hoodie", title: "Black Logo Hoodie", category: "men", price: 2599 },
-  { id: 32, image: "https://images.pexels.com/photos/842567/pexels-photo-842567.jpeg", name: "Summer Shirt", title: "Light Shirt", category: "women", price: 1999 },
-  { id: 33, image: "https://images.pexels.com/photos/298863/pexels-photo-298863.jpeg", name: "Tennis Skirt", title: "Sport Skirt", category: "women", price: 2299 },
-  { id: 34, image: "https://images.pexels.com/photos/2983464/pexels-photo-2983464.jpeg", name: "Cargo Pants", title: "Khaki Cargo", category: "men", price: 3199 },
-  { id: 35, image: "https://images.pexels.com/photos/2983471/pexels-photo-2983471.jpeg", name: "Racer Back Tank", title: "Sport Tank", category: "women", price: 1499 },
-  { id: 36, image: "https://images.pexels.com/photos/2983472/pexels-photo-2983472.jpeg", name: "Polo Dress", title: "Kids Polo Dress", category: "kids", price: 1799 },
-  { id: 37, image: "https://images.pexels.com/photos/2983475/pexels-photo-2983475.jpeg", name: "Denim Jacket Jr", title: "Kids Denim", category: "kids", price: 2799 },
-  { id: 38, image: "https://images.pexels.com/photos/2983476/pexels-photo-2983476.jpeg", name: "Boho Top", title: "Boho Style Top", category: "women", price: 2399 },
-  { id: 39, image: "https://images.pexels.com/photos/2983477/pexels-photo-2983477.jpeg", name: "Graphic Tee", title: "Cool Graphic Tee", category: "men", price: 1599 },
-  { id: 40, image: "https://images.pexels.com/photos/2983478/pexels-photo-2983478.jpeg", name: "Kids Winter Coat", title: "Kids Winter Coat", category: "kids", price: 3699 }
-]
-
-const ToList = [
+const ToList = [  
   // ===== MEN =====
   {
     id: 1,
@@ -162,6 +116,22 @@ const ToList = [
   }
 ];
 
+const AllData = [
+  { id: 1,  image: "https://media.istockphoto.com/id/2156154882/photo/blue-winter-down-jacket-modern-youth-style-white-background-isolate.jpg?s=612x612&w=0&k=20&c=U9RGl6VJu2qqCI5z48km88gCx4UaYCrLZ8dplpU88X4=", name: "Light Grey Puffer Jacket", title: "Frostline Urban Puffer", category: "men", price: 1499 },
+  { id: 2,  image: "https://media.istockphoto.com/id/1210366042/photo/padded-jacket-isolated.jpg?s=612x612&w=0&k=20&c=KGb5pI_ySitGDoXKnShzb57SFjBWosOMRMsuzVIq2oA=", name: "Olive Green Puffer Jacket", title: "Olive Ridge Puffer", category: "men", price: 2999 },
+  { id: 3,  image: "https://media.istockphoto.com/id/1300962106/photo/young-handsome-guy-in-a-warm-knitted-clothes-against-a-background-of-black-wall.jpg?s=612x612&w=0&k=20&c=nsCc004L7-LivT8bWrp6PopTWNoBJGB-hpJMjn-F-S4=", name: "Mustard Puffer Jacket", title: "Golden Ember Jacket", category: "men", price: 2499 },
+  { id: 4,  image: "https://media.istockphoto.com/id/1329845318/photo/brown-winter-down-jacket-front-and-back-view.jpg?s=612x612&w=0&k=20&c=MBTHhNj2rDOtP5Fe79okbxNjdPhdtSU8thvwNV1PGkk=", name: "Beige Hooded Jacket", title: "Sandstorm Hooded Jacket", category: "men", price: 7999 },
+  { id: 5,  image: "https://media.istockphoto.com/id/1423390535/photo/happy-mixed-race-woman.jpg?s=612x612&w=0&k=20&c=zOs-zMi6U6DJ6XGt0lk3SGj9TlPAT3Wmf_Em_rwGxYU=", name: "Men Polo Shirt", title: "Casual Polo", category: "men", price: 2199 },
+  { id: 6,  image: "https://media.istockphoto.com/id/1289229397/photo/warm-jacket-with-fur-on-the-hood-of-a-blue-color-for-a-child-seasonal-warm-clothing.jpg?s=612x612&w=0&k=20&c=5-QEu2MReb2rtGq0_FzVEK-6CIH2UcwuLmYTwx4DtiM=", name: "Red Puffer Jacket", title: "Crimson Pulse Jacket", category: "men", price: 1899 },
+  { id: 7,  image: "https://media.istockphoto.com/id/1066945152/photo/winter-blue-jacket-with-hood-isolated-on-white-background.jpg?s=612x612&w=0&k=20&c=DQIDA_CBHZUItV4Y1p0sX8H9MFiuZDcaTPPo2lbDwkE=", name: "Blue Fur Hood Jacket", title: "Frostbite Pro Jacket", category: "men", price: 2699 },
+  { id: 8,  image: "https://media.istockphoto.com/id/1289229403/photo/childrens-warm-jacket-with-fur-in-bright-stripes-seasonal-warm-clothing.jpg?s=612x612&w=0&k=20&c=nDvPmtnYbD4n_PJ4kZfNfLYgJ7zYAQuhC3uiPjLK5Gs=", name: "Multicolor Kids Jacket", title: "Neon Explorer Jacket", category: "men", price: 3499 },
+  { id: 9,  image: "https://media.istockphoto.com/id/1289229375/photo/autumn-insulated-jacket-for-a-child-orange-color-with-a-pattern-of-cars.jpg?s=612x612&w=0&k=20&c=_OQaS-MDHo1QUmJjzTTZXIgDXyvlNTFc4rXFLzaTfi8=", name: "Orange Kids Printed Jacket", title: "Firefly Winter Coat", category: "men", price: 3999 },
+  { id: 10, image: "https://images.pexels.com/photos/35185/hats-fedora-hat-manufacture-stack.jpg?auto=compress&cs=tinysrgb&w=200&h=200&fit=crop", name: "Men Cap", title: "CowBoy Cap", category: "men", price: 899 },
+
+  { id: 11, image: "https://media.istockphoto.com/id/518348142/photo/blouse.jpg?s=612x612&w=0&k=20&c=npesnO4Y5iR0cpt0chCrSDlCOGtM4ZjkDBHf97nZSjw=", name: "Women Dress", title: "Summer Dress", category: "women", price: 3799 },
+  ...ToList
+]
+
 
   const addToCart = (product) => {
     setCart([...cart, product]);
@@ -174,7 +144,7 @@ const ToList = [
     setCart([]);
   };
   // const FirstApi = "https://api.escuelajs.co/api/v1/products"
-  const SecondApi = "https://dummyjson.com/products"
+  // const SecondApi = "https://dummyjson.com/products"
 
   useEffect(()=>{
       const fetchProducts = () => {
@@ -187,9 +157,9 @@ const ToList = [
   },[])
   useEffect(()=>{
       const fetchProducts = async () => {
-    const res = await axios.get(SecondApi);
-    setCatalog(res.data.products);
-    console.log("Second Api is ",res.data.products)
+    // const res = await axios.get(SecondApi);
+    setCatalog(AllData);
+    console.log("Second Api is ",AllData)
   };
 
   fetchProducts();

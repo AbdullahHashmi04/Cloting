@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ShoppingBag, Heart, Search, Package } from "lucide-react";
 import "../Style/Catalog.css";
 
-const CATEGORIES = ["All", "beauty", "fragrances", "groceries", "skincare", "furniture"];
+const CATEGORIES = ["All", "men", "women", "kids"];
 
 export default function ClothingCatalog() {
   const { addToCart, mycategory, setCategory, catalogData } = useContext(CartContext);
@@ -124,7 +124,7 @@ export default function ClothingCatalog() {
                   >
                     <div className="catalog-product-image-wrapper">
                       <img
-                        src={item.images?.[0] || item.thumbnail || `https://images.unsplash.com/photo-${1500000000000 + item.id}?w=400&h=500&fit=crop`}
+                        src={item.image}
                         alt={item.title || item.name}
                         className="catalog-product-image"
                       />
