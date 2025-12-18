@@ -23,8 +23,7 @@ export default function LoginPage() {
   const onSubmit = async (data) => {
   console.log("Controll is coming")
   let r = await axios.post("http://localhost:3000/login" , data,{
-  validateStatus: () => true,
-})
+  validateStatus: () => true,})
   if(r.status===200){
     setLoginStatus(true);
     setResponseData(r.data)
@@ -61,24 +60,22 @@ export default function LoginPage() {
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
                 <Mail className="w-4 h-4" />
-                Username
+                Email
               </label>
               <div className="relative">
                 <input
-                  type="text"
+                  type="Email"
                   placeholder="Enter your username"
                   className="w-full pl-4 pr-4 py-3 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 outline-none transition-all"
-                  {...register("Username", {
+                  {...register("Email", {
                     required: {
                       value: true,
                       message: "This field is required",
                     },
-                    minLength: { value: 3, message: "Min length is 3" },
-                    maxLength: { value: 8, message: "Max length is 8" },
                   })}
                   />
-                  {errors.Username && (
-                   <div className="text-red-500 text-sm">{errors.Username.message}</div>)}
+                  {errors.Email && (
+                   <div className="text-red-500 text-sm">{errors.Email.message}</div>)}
               </div>
             </div>
 
