@@ -21,21 +21,21 @@ app.post("/signup",(req,res)=>{
 
 app.post("/login", async (req, res) => {
   console.log("Fetching")
-  const {Email, Password} = req.body;
-  const query1 = await Credentials.findOne({ Email: Email})
+  const {Username, Password} = req.body;
+  const query1 = await Credentials.findOne({ Username: Username})
   const query2 = await Credentials.findOne({  Password: Password })
-  const query = await Credentials.findOne({Email: Email,Password: Password })
+  const query = await Credentials.findOne({Username: Username,Password: Password })
   // console.log("Login Body req is  ,  and ",query1);
   // console.log("Again Login Body req is ",req.body , " and ",query2);
 try{
-  if(!query1){
-    res.status(401)
-   res.send("Invalid Email")
-  } else if(!query2){
-    res.status(401)
-    res.send("Invalid Password")
-  }
- else if(Email === "admin" || Password === "admin123"){
+  // if(!query1){
+  //   res.status(401)
+  //  res.send("Invalid Username")
+  // } else if(!query2){
+  //   res.status(401)
+  //   res.send("Invalid Password")
+  // }
+  if(Username === "admin" || Password === "admin123"){
     res.status(201);
     res.send("Admin Login Successful");
  }else if(query){
@@ -63,6 +63,16 @@ app.get('/',(req,res)=>{
   res.send("Hello World")
 })
 
+
+app.get('/getorders',async (req,res)=>{
+  const orders = await OrderDetails.find({})
+  res.send(orders)
+})
+
+app.get('/getcustomers',async (req,res)=>{
+  const customers = await Credentials.find({})
+  res.send(customers)
+})
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
