@@ -16,7 +16,7 @@ import AdminDashboard from './Components/admin/AdminDashboard.jsx';
 import AdminProducts from './Components/admin/AdminProducts.jsx';
 import AdminOrders from './Components/admin/AdminOrders.jsx';
 import AdminCustomers from './Components/admin/AdminCustomers.jsx';
-import todo from './Components/todo.jsx';
+import Vto from './Components/VTO/vto.jsx';
 
 const router = createBrowserRouter([
   {
@@ -30,7 +30,7 @@ const router = createBrowserRouter([
       {path:"catalog", element:<Catalog/>},
       {path:"mycart", element:<Cart/>},
       {path:"orderform", element:<OrderForm/>},
-      {path:"todo", element:<todo/>},
+      {path:"vto", element:<Vto/>},
 
     ],
   },

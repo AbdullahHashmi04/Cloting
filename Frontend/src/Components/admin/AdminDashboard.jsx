@@ -1,11 +1,6 @@
+import { useEffect , useState } from "react";
 import "../../Style/Admin.css";
-
-const kpis = [
-  { label: "Revenue", value: "$12,480", delta: "+8.2%" },
-  { label: "Orders", value: "324", delta: "+3.1%" },
-  { label: "Customers", value: "1,248", delta: "+5.6%" },
-  { label: "Conversion", value: "2.9%", delta: "+0.4%" },
-];
+import axios from "axios";
 
 const recentOrders = [
   { id: "#10492", customer: "Ayesha", status: "Paid", total: "$129.00" },
@@ -15,6 +10,38 @@ const recentOrders = [
 ];
 
 export default function AdminDashboard() {
+
+  const[cusData , setcusData] = useState ([]);
+  const[ordersData , setOrdersData] = useState ([]);
+
+
+  useEffect(() => {
+    const fetch = async () => {
+      let response = await axios("http://localhost:3000/getcustomers");
+      console.log("Fetched customers: ", response.data);
+      setcusData(response.data);
+    }
+    fetch();
+  },[]);
+
+  
+  useEffect(() => {
+    const fetch = async () => {
+      let response = await axios("http://localhost:3000/getorders");
+      setOrdersData(response.data);
+    }
+    fetch();
+  },[]);
+
+
+
+  const kpis = [
+  { label: "Revenue", value: "$12,480", delta: "+8.2%" },
+  { label: "Orders", value: ordersData.length, delta: "+3.1%" },
+  { label: "Customers", value: cusData.length, delta: "+5.6%" },
+  { label: "Conversion", value: "2.9%", delta: "+0.4%" },
+];
+
   return (
     <div className="admin-stack">
       <section className="admin-kpi-grid">

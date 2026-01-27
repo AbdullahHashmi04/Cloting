@@ -36,9 +36,9 @@ function SignUp() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="max-w-md w-full"
+         className="w-[600px] h-[550px]"
       >
-        <div className="bg-white/80 backdrop-blur-lg rounded-3xl shadow-2xl p-8 md:p-10 border border-white/20">
+        <div className="bg-white/80 backdrop-blur-lg rounded-3xl shadow-2xl p-8 md:p-10 border border-white/20  h-full w-full overflow-auto">
           <div className="flex items-center justify-center mb-8">
             <div className="bg-gradient-to-r from-purple-600 to-pink-600 p-4 rounded-2xl">
               <UserPlus className="h-8 w-8 text-white" />

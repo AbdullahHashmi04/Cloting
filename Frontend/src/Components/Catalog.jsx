@@ -1,7 +1,8 @@
 import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { CartContext } from "./CartContext.jsx";
 import { motion, AnimatePresence } from "framer-motion";
-import { ShoppingBag, Heart, Search, Package } from "lucide-react";
+import { ShoppingBag, Search, Package } from "lucide-react";
 import "../Style/Catalog.css";
 
 const CATEGORIES = ["All", "men", "women", "kids"];
@@ -26,17 +27,9 @@ export default function ClothingCatalog() {
     }, 2000);
   };
 
-  const toggleLike = (id) => {
-    setLikedItems(prev => {
-      const newSet = new Set(prev);
-      if (newSet.has(id)) {
-        newSet.delete(id);
-      } else {
-        newSet.add(id);
-      }
-      return newSet;
-    });
-  };
+  const naviagtor = useNavigate();
+
+
 
   const filteredProducts = catalogData.filter((p) => {
     const matchesQuery = (p.title || p.name || "").toLowerCase().includes(query.toLowerCase());
@@ -132,13 +125,16 @@ export default function ClothingCatalog() {
                       />
                       <div className="catalog-product-overlay"></div>
                       <button
-                        onClick={() => toggleLike(item.id)}
-                        className={`catalog-product-wishlist ${
+                        // onClick={() => toggleLike(item.id)}
+                         onClick = {()=>{naviagtor('/vto')}}
+                        className={`catalog-product-wishlist animate-pulse ${
                           likedItems.has(item.id) ? "catalog-product-wishlist-active" : ""
+                    
                         }`}
-                        aria-label={likedItems.has(item.id) ? "Remove from wishlist" : "Add to wishlist"}
+                        // aria-label={likedItems.has(item.id) ? "Remove from wishlist" : "Add to wishlist"}
                       >
-                        <Heart className={`w-5 h-5 ${likedItems.has(item.id) ? "fill-current" : ""}`} />
+                        {/* <Heart className={`w-5 h-5 ${likedItems.has(item.id) ? "fill-current" : ""}`} /> */}
+                        <h2>VTO</h2> 
                       </button>
                     </div>
 

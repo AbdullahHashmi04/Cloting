@@ -50,7 +50,7 @@ export default function AdminLayout() {
             <div className="admin-topbar-subtitle">Quick stats and actions</div>
           </div>
 
-          <div className="admin-topbar-actions">
+          {/* <div className="admin-topbar-actions">
             <div className="admin-search" role="search">
               <input
                 className="admin-search-input"
@@ -61,7 +61,7 @@ export default function AdminLayout() {
             <button className="admin-primary-btn" type="button">
               + New Product
             </button>
-          </div>
+          </div> */}
         </header>
 
         <main className="admin-content">

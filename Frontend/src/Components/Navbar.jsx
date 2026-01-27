@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { CartContext } from "./CartContext";
 import "../Style/Navbar.css";
 import SignUp from "./SignUp";
-import todo from "./todo";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -25,8 +24,7 @@ export default function Navbar() {
   const navLinks = [
     { path: "/", label: "Home" },
     { path: "/catalog", label: "Catalog" },
-    { path: "/about", label: "About" },
-    { path: "/todo", label: "todo" },
+    { path: "/about", label: "About" }
   ];
 
   const isActive = (path) => {

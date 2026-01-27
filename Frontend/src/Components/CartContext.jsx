@@ -75,7 +75,9 @@ const AllData = [
 
   return (
     <CartContext.Provider
-      value={{ cart, addToCart,mycategory, setCategory,removeFromCart, clearCart,catalogData ,mydata,loginStatus,setLoginStatus,RegisterStatus,SetRegisterStatus}}
+      value={{ cart, addToCart,mycategory, setCategory,removeFromCart,
+         clearCart,catalogData ,mydata,loginStatus,setLoginStatus,
+         RegisterStatus,SetRegisterStatus}}
     >
       {children}
     </CartContext.Provider>

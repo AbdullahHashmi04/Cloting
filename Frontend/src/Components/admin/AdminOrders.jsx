@@ -1,14 +1,25 @@
+import { useState, useEffect } from "react";
 import "../../Style/Admin.css";
-
-const orders = [
-  { id: "#10492", date: "Dec 12", customer: "Ayesha", status: "Paid", total: "$129.00" },
-  { id: "#10491", date: "Dec 11", customer: "Hassan", status: "Processing", total: "$74.50" },
-  { id: "#10490", date: "Dec 10", customer: "Sara", status: "Shipped", total: "$249.99" },
-  { id: "#10489", date: "Dec 09", customer: "Usman", status: "Paid", total: "$39.00" },
-  { id: "#10488", date: "Dec 08", customer: "Ali", status: "Refunded", total: "$59.00" },
-];
+import axios from "axios";
 
 export default function AdminOrders() {
+  const [ordersData, setOrdersData] = useState([]);
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/getorders');
+        setOrdersData(response.data);
+        console.log("Fetched orders: ", response.data);
+      } catch (error) {
+        console.error("Error fetching orders: ", error);
+      }
+    };
+    fetchOrders();
+  }, []);
+
+  console.log("Orders Data: ", ordersData.length);
+
   return (
     <div className="admin-stack">
       <div className="admin-card admin-card-pad">
@@ -29,19 +40,23 @@ export default function AdminOrders() {
             <div>Date</div>
             <div>Customer</div>
             <div>Status</div>
-            <div className="admin-right">Total</div>
+            {/* <div className="admin-right">Total</div> */}
           </div>
-          {orders.map((o) => (
-            <div key={o.id} className="admin-table-row">
-              <div className="admin-mono">{o.id}</div>
-              <div>{o.date}</div>
-              <div className="admin-strong">{o.customer}</div>
-              <div>
-                <span className={`admin-pill admin-pill-${o.status.toLowerCase()}`}>{o.status}</span>
+    {ordersData.length > 0 ? (
+              ordersData.map((o, index) => (  // Added index as fallback
+              <div key={o._id?.toString() || `order-${index}`} className="admin-table-row">  {/* Unique key with fallback */}
+                <div className="admin-mono">{o._id?.toString() || o._id}</div>
+                <div>N/A</div>
+                <div className="admin-strong">{o.FullName}</div>
+                {/* <div>
+                  <span className={`admin-pill admin-pill-${(o.status || '').toLowerCase()}`}>{o.status || 'N/A'}</span>
+                </div>
+                <div className="admin-right admin-strong">{o.total || `Items: ${o.cart?.length || 0}`}</div> */}
               </div>
-              <div className="admin-right admin-strong">{o.total}</div>
-            </div>
-          ))}
+            ))
+          ) : (
+            <div>No orders available</div>  // Fallback if not an array or empty
+          ) }
         </div>
       </div>
     </div>
