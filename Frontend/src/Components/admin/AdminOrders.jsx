@@ -28,10 +28,9 @@ export default function AdminOrders() {
             <div className="admin-card-title">Orders</div>
             <div className="admin-muted">Track fulfillment and payment status.</div>
           </div>
-          <div className="admin-inline">
-            <button className="admin-secondary-btn" type="button">Export</button>
-            <button className="admin-primary-btn" type="button">+ Create Order</button>
-          </div>
+                <button className="admin-primary-btn" type="button">
+              Manage Orders
+            </button>
         </div>
 
         <div className="admin-table admin-mt">
@@ -45,8 +44,8 @@ export default function AdminOrders() {
     {ordersData.length > 0 ? (
               ordersData.map((o, index) => (  // Added index as fallback
               <div key={o._id?.toString() || `order-${index}`} className="admin-table-row">  {/* Unique key with fallback */}
-                <div className="admin-mono">{o._id?.toString() || o._id}</div>
-                <div>N/A</div>
+                <div className="admin-mono">#{o._id.slice(0,7)}</div>
+                <div className="admin-mono ">{o.date}</div>
                 <div className="admin-strong">{o.FullName}</div>
                 {/* <div>
                   <span className={`admin-pill admin-pill-${(o.status || '').toLowerCase()}`}>{o.status || 'N/A'}</span>

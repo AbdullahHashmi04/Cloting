@@ -1,8 +1,19 @@
 import Footer from "./Footer"
 import Navbar from "./Navbar"
 import { Outlet} from "react-router-dom"
+import Chatbot from "./Bot"
+// import Snowfall from "react-snowfall";
 
 function App() {
+  const config = {
+  initialMessages: [
+    {
+      text: "Hello! How can I help you today?",
+      sender: "bot",
+    },
+  ],
+  customComponents: {},
+};
 
   return (
     <div className="min-h-screen flex flex-col w-full overflow-x-hidden">
@@ -10,9 +21,14 @@ function App() {
       <main className="flex-1 w-full pt-20">
         <Outlet/>
       </main>
+ <Chatbot 
+  config={config} 
+/>
+      {/* <div style={{ height: "100vh", background: "#0f172a" }}>
+      <Snowfall /> */}
       <Footer/>
+      {/* </div> */}
     </div>
   )
 }
-
-export default App
+export default App;

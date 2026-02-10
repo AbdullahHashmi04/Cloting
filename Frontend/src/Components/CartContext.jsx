@@ -1,19 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-const-assign */
 import { createContext, use, useEffect, useState } from "react";
-import axios from "axios";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
+
   const [cart, setCart] = useState([]);
   const [mydata,setData] = useState([]);
   const [catalogData,setCatalog] = useState([]);
   const [loginStatus,setLoginStatus]= useState(false);
   const [RegisterStatus,SetRegisterStatus]= useState(false);
-
   const [mycategory, setCategory] = useState();
+  const [ImageVto,setImageVto] = useState([])
 
 const ToList = [  
   {id: 13,image: "https://media.istockphoto.com/id/2189959028/photo/male-men-denim-jacket-isolated-on-white-nobody-jean-jacket-blue-outwear.jpg?s=612x612&w=0&k=20&c=Bd8b03cba82N9GreXx5w544fzlJI8MonXJ0AHUrRnNQ=",name: "Arctic Blue Classic Denim",title: "Slim Fit Blue Jeans",category: "men",price: 2999  },
@@ -27,7 +27,7 @@ const ToList = [
   {id: 21,image: "https://media.istockphoto.com/id/639511940/photo/beautiful-denim-pants.jpg?s=612x612&w=0&k=20&c=aMeomXPDGFvk9sgbliTNamQhvrnEznVtjp4FfTgY_SY=",name: "Women Winter Coat",title: "Long Wool Coat",category: "kid",price: 5499},
   {id: 22,image: "https://media.istockphoto.com/id/1132036871/photo/tough-guys-wear-pink.jpg?s=612x612&w=0&k=20&c=g5GvrlDNM13jtklsmhhCAJG25jGe_GcmksXVyq0L23E=",name: "Women Winter Coat",title: "Long Wool Coat",category: "women",price: 5499},
   {id: 23,image: "https://media.istockphoto.com/id/522628236/photo/little-girl-sneakers-shoes.jpg?s=612x612&w=0&k=20&c=JT7FEcRZNzOaAwDoFldcp5iymPU8hJ8Yt-WFvKZpcvw=",name: "Women Winter Coat",title: "Long Wool Coat",category: "women",price: 5499}
-];
+]
 
 const AllData = [
   { id: 2,  image: "https://media.istockphoto.com/id/1210366042/photo/padded-jacket-isolated.jpg?s=612x612&w=0&k=20&c=KGb5pI_ySitGDoXKnShzb57SFjBWosOMRMsuzVIq2oA=", name: "Olive Green Puffer Jacket", title: "Olive Ridge Puffer", category: "women", price: 2999 },
@@ -43,10 +43,15 @@ const AllData = [
   ...ToList
 ]
 
+  const addVtoImage = (product) => {
+    setImageVto([product]);
+  };
+
 
   const addToCart = (product) => {
     setCart([...cart, product]);
   };
+
   const removeFromCart = (id) => {
     setCart((prev) => prev.filter((item) => item.id !== id));
   };
@@ -54,32 +59,30 @@ const AllData = [
   const clearCart = () => {
     setCart([]);
   };
+
   useEffect(()=>{
-      const fetchProducts = () => {
+    const fetchProducts = () => {
     setData(ToList);
   };
-
   fetchProducts();
   },[])
+
   useEffect(()=>{
-      const fetchProducts = async () => {
+    const fetchProducts = async () => {
     setCatalog(AllData);
   };
-
   fetchProducts();
   },[])
 
   useEffect(() => {
   },[mycategory])
 
-
   return (
     <CartContext.Provider
       value={{ cart, addToCart,mycategory, setCategory,removeFromCart,
          clearCart,catalogData ,mydata,loginStatus,setLoginStatus,
-         RegisterStatus,SetRegisterStatus}}
-    >
-      {children}
+         RegisterStatus,SetRegisterStatus,ImageVto , addVtoImage}}>
+           {children}
     </CartContext.Provider>
   );
 };

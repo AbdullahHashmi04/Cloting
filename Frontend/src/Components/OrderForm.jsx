@@ -1,24 +1,22 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { CartContext } from './CartContext';
-import { motion } from 'framer-motion';
+import { motion, removeItem } from 'framer-motion';
 import { CreditCard, MapPin, User, Phone, Mail, CheckCircle } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const OrderForm = () => {
   const { cart, clearCart } = useContext(CartContext);
-  const navigate = useNavigate();
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm();
 
   const onSubmit = async (data) => {
     try {
-      console.log("Data is coming again")
+      console.log("Data is coming again", data)
      const res =  await axios.post("http://localhost:3000/orders", {  data });
      if(res.status === 200){
      console.log("Response successful" , res)
-      clearCart();
-      navigate("/");
+      // clearCart();
+      // navigate("/");
      }
     } catch (error) {
       console.error("Order submission error:", error);
@@ -199,17 +197,21 @@ const OrderForm = () => {
                 </div>
                 <div className="flex justify-between text-xl font-bold pt-3 border-t">
                   <span>Total</span>
-                  <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-                    ${totalPrice.toFixed(2)}
-                  </span>
+                  <input type='text'
+                   {...register("Total")}
+                   value={totalPrice}
+                  className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent"/>
+              
                 </div>
               </div>
 
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full mt-6 bg-gradient-to-r from-purple-600 to-pink-600 text-white py-4 rounded-xl font-semibold hover:from-purple-700 hover:to-pink-700 transition-all transform hover:scale-105 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-              >
+                className="w-full mt-6 bg-gradient-to-r from-purple-600 to-pink-600 text-white py-4 rounded-xl 
+                font-semibold hover:from-purple-700 hover:to-pink-700 transition-all transform hover:scale-105 
+                shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
+                  
                 {isSubmitting ? (
                   "Processing..."
                 ) : (

@@ -16,7 +16,6 @@ import {
 function Cart() {
   const { handleSubmit } = useForm();
 
-  const Navigate = useNavigate();
   const { cart, removeFromCart, loginStatus } = useContext(CartContext);
   const [quantities, setQuantities] = useState({});
 
@@ -215,13 +214,13 @@ function Cart() {
                       <Link to="/OrderForm">
                         <button className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all transform hover:scale-105 shadow-lg font-semibold">
                           <CreditCard className="w-5 h-5" />
-                          Proceed to Checkout
+                          Proceed to Checkout.
                         </button>
                       </Link>
                     ) : (
                       <Link to="/login">
                         <button className="w-full flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl hover:from-purple-700 hover:to-pink-700 transition-all transform hover:scale-105 shadow-lg font-semibold">
-                          Login to Checkout
+                          Login to Get 10% discount.
                         </button>
                       </Link> )}
                     

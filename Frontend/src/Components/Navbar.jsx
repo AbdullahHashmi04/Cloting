@@ -1,6 +1,16 @@
-import { useState, useContext, useEffect } from "react";
+import { useState,useRef, useContext, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { ShoppingBag, Menu, User, X, LogOut, CircleUser, ArrowBigRight  } from "lucide-react";
+import axios from "axios";
+import {
+  ShoppingBag,
+  Menu,
+  User,
+  X,
+  LogOut,
+  CircleUser,
+  ArrowBigRight,
+  LayoutDashboard,
+} from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { CartContext } from "./CartContext";
 import "../Style/Navbar.css";
@@ -8,10 +18,15 @@ import SignUp from "./SignUp";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const[Username,setUsername]=useState("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { cart, loginStatus, setLoginStatus, RegisterStatus } =
     useContext(CartContext);
-  const location = useLocation();
+      const [open, setOpen] = useState(false);
+    const location = useLocation();
+
+    const ref = useRef();
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,10 +36,23 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(()=>{
+    const fetchUserData = async() =>{
+    const response = await axios("http://localhost:3000/getcustomers")
+    console.log("Response data in Navbar:",response.data.Username);
+    setUsername(response.data.Username);
+    }
+    fetchUserData();
+  })
+
+  useEffect(() => {
+    console.log("Username in Navbar:", Username);
+  },[Username]);
+
   const navLinks = [
     { path: "/", label: "Home" },
     { path: "/catalog", label: "Catalog" },
-    { path: "/about", label: "About" }
+    { path: "/about", label: "About" },
   ];
 
   const isActive = (path) => {
@@ -33,6 +61,14 @@ export default function Navbar() {
     }
     return location.pathname.startsWith(path);
   };
+  useEffect(() => {
+  function handleClick(e) {
+    if (!ref.current?.contains(e.target)) setOpen(false);
+  }
+  document.addEventListener("mousedown", handleClick);
+  return () => document.removeEventListener("mousedown", handleClick);
+}, []);
+
 
   return (
     <motion.nav
@@ -80,9 +116,10 @@ export default function Navbar() {
             ))}
           </div>
 
-       <div className="navbar-actions">
-           {cart.length > 0 && (<Link to="/mycart" className="navbar-cart-button">
-              <ShoppingBag className="navbar-cart-icon" />
+          <div className="navbar-actions">
+            {cart.length > 0 && (
+              <Link to="/mycart" className="navbar-cart-button">
+                <ShoppingBag className="navbar-cart-icon" />
                 <motion.span
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
@@ -90,55 +127,75 @@ export default function Navbar() {
                 >
                   {cart.length}
                 </motion.span>
-            </Link>)}
+              </Link>
+            )}
 
-            {loginStatus ? 
-            ( <div className="relative group">
-      {/* Profile Icon */}
-      <CircleUser
-        size={30}
-        className="cursor-pointer text-gray-700 hover:text-gray-900 transition-colors duration-200"
-      />
+            {loginStatus ? (
+              <div className="relative inline-block">
+      {/* Trigger */}
+      <button
+        onClick={() => setOpen((v) => !v)}
+        className="px-4 relative py-2 rounded-lg bg-black text-white"
+      >
+        <User/>
+      </button>
 
-      {/* Dropdown Button */}
-      <div className="absolute right-0 mt-2 w-36 bg-white shadow-lg rounded-lg opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 pointer-events-none group-hover:pointer-events-auto">
-        <button className="flex items-center justify-between w-full px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg">
-          Logout <ArrowBigRight size={20} />
-        </button>
+      {/* Dropdown menu */}
+      <div
+        className={`absolute right-0 mt-2 w-48 rounded-lg bg-white border border-gray-200 shadow-lg
+          transition-all duration-150
+          ${open ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"}
+        `}
+      >
+        <ul className="py-1 text-sm">
+          <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+            Profile
+          </li>
+          <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+            Settings
+          </li>
+          <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-red-600">
+            Logout
+          </li>
+        </ul>
       </div>
     </div>
-              )
-            : (
-                <Link to="/login" className="navbar-login-button">
-                  Login
-                </Link>)}
+            ) : (
+              <Link to="/login" className="navbar-login-button">
+                Login
+              </Link>
+            )}
 
-                {RegisterStatus || loginStatus ? null : (
-                  <Link to="/signup" className="navbar-signup-button">
-                    Sign Up
-                  </Link>
-                )}
-              </div>
-      
-
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="navbar-mobile-toggle"
-              aria-label="Toggle menu"
-            >
-              {isMobileMenuOpen ? (
-                <X className="navbar-mobile-icon" />
-              ) : (
-                <Menu className="navbar-mobile-icon" />
-              )}
-            </button>
+            {RegisterStatus || loginStatus ? null : (
+              <Link to="/signup" className="navbar-signup-button">
+                Sign Up
+              </Link>
+            )}
           </div>
-        </div>
-      </motion.nav>)}
 
-      {/* Mobile Menu */}
-      {/* <AnimatePresence>
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="navbar-mobile-toggle"
+            aria-label="Toggle menu"
+          >
+            {isMobileMenuOpen ? (
+              <X className="navbar-mobile-icon" />
+            ) : (
+              <Menu className="navbar-mobile-icon" />
+            )}
+          </button>
+        </div>
+      </div>
+    </motion.nav>
+  );
+}
+
+{
+  /* Mobile Menu */
+}
+{
+  /*<AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
@@ -196,4 +253,5 @@ export default function Navbar() {
             </div>
           </motion.div>
         )}
-      </AnimatePresence> */}
+      </AnimatePresence> */
+}

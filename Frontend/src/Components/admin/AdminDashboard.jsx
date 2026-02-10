@@ -2,13 +2,6 @@ import { useEffect , useState } from "react";
 import "../../Style/Admin.css";
 import axios from "axios";
 
-const recentOrders = [
-  { id: "#10492", customer: "Ayesha", status: "Paid", total: "$129.00" },
-  { id: "#10491", customer: "Hassan", status: "Processing", total: "$74.50" },
-  { id: "#10490", customer: "Sara", status: "Shipped", total: "$249.99" },
-  { id: "#10489", customer: "Usman", status: "Paid", total: "$39.00" },
-];
-
 export default function AdminDashboard() {
 
   const[cusData , setcusData] = useState ([]);
@@ -34,13 +27,13 @@ export default function AdminDashboard() {
   },[]);
 
 
-
   const kpis = [
   { label: "Revenue", value: "$12,480", delta: "+8.2%" },
   { label: "Orders", value: ordersData.length, delta: "+3.1%" },
   { label: "Customers", value: cusData.length, delta: "+5.6%" },
   { label: "Conversion", value: "2.9%", delta: "+0.4%" },
 ];
+
 
   return (
     <div className="admin-stack">
@@ -68,17 +61,17 @@ export default function AdminDashboard() {
               <div>Status</div>
               <div className="admin-right">Total</div>
             </div>
-            {recentOrders.map((o) => (
-              <div key={o.id} className="admin-table-row">
-                <div className="admin-mono">{o.id}</div>
-                <div>{o.customer}</div>
-                <div>
+            {ordersData.slice(0,6).map((o) => (
+              <div key={o._id} className="admin-table-row">
+                <div className="admin-mono">#{o._id.slice(0,7)}</div>
+                <div className="font-bold">{o.FullName}</div>
+                {/* <div>
                   <span className={`admin-pill admin-pill-${o.status.toLowerCase()}`}
                   >
                     {o.status}
                   </span>
                 </div>
-                <div className="admin-right admin-strong">{o.total}</div>
+                <div className="admin-right admin-strong">{o.total}</div> */}
               </div>
             ))}
           </div>

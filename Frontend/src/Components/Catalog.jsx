@@ -4,11 +4,12 @@ import { CartContext } from "./CartContext.jsx";
 import { motion, AnimatePresence } from "framer-motion";
 import { ShoppingBag, Search, Package } from "lucide-react";
 import "../Style/Catalog.css";
+import { Link } from "react-router-dom";
 
 const CATEGORIES = ["All", "men", "women", "kids"];
 
 export default function ClothingCatalog() {
-  const { addToCart, mycategory, setCategory, catalogData } = useContext(CartContext);
+  const { addToCart, mycategory, setCategory, catalogData ,addVtoImage } = useContext(CartContext);
   const [showToast, setShowToast] = useState(false);
   const [query, setQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(mycategory || "All");
@@ -26,10 +27,14 @@ export default function ClothingCatalog() {
       setShowToast(false);
     }, 2000);
   };
-
-  const naviagtor = useNavigate();
-
-
+  const handleVtoImages = (product) => {
+    console.log("Invoked")
+    addVtoImage({
+      name: product.title || product.name,
+      img: product.images?.[0] || product.thumbnail || `https://images.unsplash.com/photo-${1500000000000 + product.id}?w=400&h=500&fit=crop`,
+      price: product.price || Math.floor(Math.random() * 200) + 20
+    });
+  };
 
   const filteredProducts = catalogData.filter((p) => {
     const matchesQuery = (p.title || p.name || "").toLowerCase().includes(query.toLowerCase());
@@ -124,18 +129,20 @@ export default function ClothingCatalog() {
                         className="catalog-product-image"
                       />
                       <div className="catalog-product-overlay"></div>
+                      <Link to="/vto">
                       <button
                         // onClick={() => toggleLike(item.id)}
-                         onClick = {()=>{naviagtor('/vto')}}
+                        onClick = {()=>{handleVtoImages(item)}}
                         className={`catalog-product-wishlist animate-pulse ${
                           likedItems.has(item.id) ? "catalog-product-wishlist-active" : ""
-                    
+                          
                         }`}
                         // aria-label={likedItems.has(item.id) ? "Remove from wishlist" : "Add to wishlist"}
-                      >
+                        >
                         {/* <Heart className={`w-5 h-5 ${likedItems.has(item.id) ? "fill-current" : ""}`} /> */}
                         <h2>VTO</h2> 
                       </button>
+                        </Link>
                     </div>
 
                     <div className="catalog-product-content">
