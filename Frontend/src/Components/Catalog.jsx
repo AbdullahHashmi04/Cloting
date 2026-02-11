@@ -1,5 +1,4 @@
 import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
 import { CartContext } from "./CartContext.jsx";
 import { motion, AnimatePresence } from "framer-motion";
 import { ShoppingBag, Search, Package } from "lucide-react";
@@ -13,7 +12,7 @@ export default function ClothingCatalog() {
   const [showToast, setShowToast] = useState(false);
   const [query, setQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(mycategory || "All");
-  const [likedItems, setLikedItems] = useState(new Set());
+  const [likedItems] = useState(new Set());
 
   const handleAddToCart = (product) => {
     addToCart({
@@ -140,7 +139,7 @@ export default function ClothingCatalog() {
                         // aria-label={likedItems.has(item.id) ? "Remove from wishlist" : "Add to wishlist"}
                         >
                         {/* <Heart className={`w-5 h-5 ${likedItems.has(item.id) ? "fill-current" : ""}`} /> */}
-                        <h2>VTO</h2> 
+                        <h2 className="font-bold">Try</h2> 
                       </button>
                         </Link>
                     </div>

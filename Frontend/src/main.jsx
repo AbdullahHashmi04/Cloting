@@ -17,6 +17,7 @@ import AdminProducts from './Components/admin/AdminProducts.jsx';
 import AdminOrders from './Components/admin/AdminOrders.jsx';
 import AdminCustomers from './Components/admin/AdminCustomers.jsx';
 import Vto from './Components/VTO/vto.jsx';
+import { Auth0Provider } from '@auth0/auth0-react';
 
 const router = createBrowserRouter([
   {
@@ -46,10 +47,14 @@ const router = createBrowserRouter([
   },
 ]);
 createRoot(document.getElementById('root')).render(
-
-  <StrictMode>
-    <CartProvider>
-    <RouterProvider router={router} />
-    </CartProvider>
-  </StrictMode>,
-)
+        <Auth0Provider
+      domain="dev-wirs6t2a6m5ev1r0.us.auth0.com"
+      clientId="41Og324pLpi3Fa3tsnEZ0FGvUfd1qi79"
+      authorizationParams={{
+        redirect_uri: window.location.origin
+      }} >
+             <CartProvider>
+                <RouterProvider router={router} />
+             </CartProvider>
+         </Auth0Provider>,
+         )

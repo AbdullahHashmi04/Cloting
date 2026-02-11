@@ -2,6 +2,8 @@ import Footer from "./Footer"
 import Navbar from "./Navbar"
 import { Outlet} from "react-router-dom"
 import Chatbot from "./Bot"
+import { Auth0Provider } from '@auth0/auth0-react';
+
 // import Snowfall from "react-snowfall";
 
 function App() {

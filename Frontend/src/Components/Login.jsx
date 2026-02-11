@@ -6,7 +6,8 @@ import { Link,useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { CartContext } from "./CartContext";
 import { motion } from "framer-motion";
-import { LogIn, Mail, Lock, Sparkles } from "lucide-react";
+import { LogIn, Mail, Lock, Sparkles  } from "lucide-react";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export default function LoginPage() {
   const [responseData, setResponseData] = useState("");
@@ -35,6 +36,9 @@ export default function LoginPage() {
     setResponseData(r.data)
   }
 }
+
+    const {user , loginWithRedirect} = useAuth0();
+
   return (
 <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-white flex items-center justify-center px-4 py-12">
   <motion.div
@@ -138,6 +142,15 @@ export default function LoginPage() {
           </Link>
         </p>
       </div>
+
+      
+      <div className="mt-10 text-center">
+        <button onClick={(e)=> loginWithRedirect()}  className="w-60 h-9 bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 rounded-xl
+         font-semibold hover:from-purple-700 hover:to-pink-700
+         transition-all duration-200 transform hover:scale-105 shadow-lg disabled:opacity-50 
+         disabled:cursor-not-allowed">Register here</button>
+      </div>
+
     </div>
     
   </motion.div>

@@ -1,6 +1,7 @@
-import { useState,useRef, useContext, useEffect } from "react";
+import { useState, useRef, useContext, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
+import { useAuth0 } from "@auth0/auth0-react";
 import {
   ShoppingBag,
   Menu,
@@ -18,15 +19,15 @@ import SignUp from "./SignUp";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const[Username,setUsername]=useState("");
+  const [Username, setUsername] = useState("");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { cart, loginStatus, setLoginStatus, RegisterStatus } =
-    useContext(CartContext);
-      const [open, setOpen] = useState(false);
-    const location = useLocation();
+  const { cart, RegisterStatus } = useContext(CartContext);
+  const [open, setOpen] = useState(false);
+  const location = useLocation();
 
-    const ref = useRef();
+  const ref = useRef();
 
+  const { user, loginWithRedirect, isAuthenticated, logout } = useAuth0();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -36,23 +37,24 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useEffect(()=>{
-    const fetchUserData = async() =>{
-    const response = await axios("http://localhost:3000/getcustomers")
-    console.log("Response data in Navbar:",response.data.Username);
-    setUsername(response.data.Username);
-    }
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const response = await axios("http://localhost:3000/getcustomers");
+      console.log("Response data in Navbar:", response.data.Username);
+      setUsername(response.data.Username);
+    };
     fetchUserData();
-  })
+  });
 
   useEffect(() => {
     console.log("Username in Navbar:", Username);
-  },[Username]);
+  }, [Username]);
 
   const navLinks = [
     { path: "/", label: "Home" },
     { path: "/catalog", label: "Catalog" },
     { path: "/about", label: "About" },
+    { path: "/", label: "Trending" },
   ];
 
   const isActive = (path) => {
@@ -62,13 +64,12 @@ export default function Navbar() {
     return location.pathname.startsWith(path);
   };
   useEffect(() => {
-  function handleClick(e) {
-    if (!ref.current?.contains(e.target)) setOpen(false);
-  }
-  document.addEventListener("mousedown", handleClick);
-  return () => document.removeEventListener("mousedown", handleClick);
-}, []);
-
+    function handleClick(e) {
+      if (!ref.current?.contains(e.target)) setOpen(false);
+    }
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, []);
 
   return (
     <motion.nav
@@ -130,47 +131,67 @@ export default function Navbar() {
               </Link>
             )}
 
-            {loginStatus ? (
+            {isAuthenticated ? (
               <div className="relative inline-block">
-      {/* Trigger */}
-      <button
-        onClick={() => setOpen((v) => !v)}
-        className="px-4 relative py-2 rounded-lg bg-black text-white"
-      >
-        <User/>
-      </button>
+                {/* Trigger */}
+                <button
+                  onClick={() => setOpen((v) => !v)}
+                  className="px-4 relative py-2 rounded-lg bg-black text-white"
+                >
+                  <User />
+                </button>
 
-      {/* Dropdown menu */}
-      <div
-        className={`absolute right-0 mt-2 w-48 rounded-lg bg-white border border-gray-200 shadow-lg
+                {/* Dropdown menu */}
+                <div
+                  className={`absolute right-0 mt-2 w-48 rounded-lg bg-white border border-gray-200 shadow-lg
           transition-all duration-150
           ${open ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"}
         `}
-      >
-        <ul className="py-1 text-sm">
-          <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-            Profile
-          </li>
-          <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-            Settings
-          </li>
-          <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-red-600">
-            Logout
-          </li>
-        </ul>
-      </div>
-    </div>
+                >
+                  <ul className="py-1 text-sm">
+                    <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                      Profile
+                    </li>
+                    <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                      Settings
+                    </li>
+                    <li className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-red-600">
+                      Logout
+                    </li>
+                  </ul>
+                </div>
+              </div>
             ) : (
-              <Link to="/login" className="navbar-login-button">
-                Login
-              </Link>
+              <div className="mt-10 text-center">
+                <button
+                  onClick={(e) => loginWithRedirect()}
+                  className="w-30 h-9 bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 rounded-xl
+         font-semibold hover:from-purple-700 hover:to-pink-700
+         transition-all duration-200 transform hover:scale-105 shadow-lg disabled:opacity-50 
+         disabled:cursor-not-allowed "
+                >
+                  Register here
+                </button>
+                <button className="w-30 h-9 bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 rounded-xl
+         font-semibold hover:from-purple-700 hover:to-pink-700
+         transition-all duration-200 transform hover:scale-105 shadow-lg disabled:opacity-50 
+         disabled:cursor-not-allowed"
+                  onClick={() =>
+                    logout({
+                      logoutParams: { returnTo: window.location.origin },
+                    })
+                  }
+                >
+                  Log Out
+                </button>
+              </div>
             )}
 
-            {RegisterStatus || loginStatus ? null : (
+            {/* {RegisterStatus || loginStatus ? null : (
               <Link to="/signup" className="navbar-signup-button">
                 Sign Up
               </Link>
-            )}
+            )} */}
           </div>
 
           {/* Mobile Menu Button */}
