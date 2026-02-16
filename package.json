@@ -1,12 +1,6 @@
 {
-  "name": "src-styled-admin",
-  "version": "1.0.0",
-  "type": "module",
   "dependencies": {
-    "body-parser": "^2.2.1",
-    "cors": "^2.8.5",
-    "express": "^5.2.1",
-    "lucide-react": "^0.561.0",
-    "mongoose": "^9.0.1"
+    "@lobehub/icons": "^1.59.1",
+    "dotenv": "^17.3.1"
   }
 }

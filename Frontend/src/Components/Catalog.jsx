@@ -12,7 +12,6 @@ export default function ClothingCatalog() {
   const [showToast, setShowToast] = useState(false);
   const [query, setQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(mycategory || "All");
-  const [likedItems] = useState(new Set());
 
   const handleAddToCart = (product) => {
     addToCart({
@@ -130,15 +129,8 @@ export default function ClothingCatalog() {
                       <div className="catalog-product-overlay"></div>
                       <Link to="/vto">
                       <button
-                        // onClick={() => toggleLike(item.id)}
                         onClick = {()=>{handleVtoImages(item)}}
-                        className={`catalog-product-wishlist animate-pulse ${
-                          likedItems.has(item.id) ? "catalog-product-wishlist-active" : ""
-                          
-                        }`}
-                        // aria-label={likedItems.has(item.id) ? "Remove from wishlist" : "Add to wishlist"}
-                        >
-                        {/* <Heart className={`w-5 h-5 ${likedItems.has(item.id) ? "fill-current" : ""}`} /> */}
+                        className={`catalog-product-wishlist animate-puls`}>
                         <h2 className="font-bold">Try</h2> 
                       </button>
                         </Link>

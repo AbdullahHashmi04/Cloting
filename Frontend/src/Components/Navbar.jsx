@@ -54,7 +54,7 @@ export default function Navbar() {
     { path: "/", label: "Home" },
     { path: "/catalog", label: "Catalog" },
     { path: "/about", label: "About" },
-    { path: "/", label: "Trending" },
+    // { path: "/", label: "Trending" },
   ];
 
   const isActive = (path) => {

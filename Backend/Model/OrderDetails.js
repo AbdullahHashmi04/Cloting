@@ -10,10 +10,11 @@ const Details = new mongoose.Schema({
     Email : String,
     Phone : Number,
     Address : String,
+    date : String,
     cart : [MyCart]
 
 })
 
-const Payment =  mongoose.model("Payment",Details)
+const OrderDetails =  mongoose.model("OrderDetails",Details)
 
-export default Payment;
+export default OrderDetails;
